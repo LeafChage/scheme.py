@@ -15,12 +15,12 @@ class TestStringParser:
         assert stream == ""
 
     def test_raise(self):
-        e = ParserException(expect="hello", actual="world")
+        e = ParserException(expect=["hello"], actual="world")
         with pytest.raises(ParserException, match=e.msg()):
              self.p.parse("worldhello")
 
     def test_raise_nothing(self):
-        e = ParserException(expect="hello", actual="")
+        e = ParserException(expect=["hello"], actual="")
         with pytest.raises(ParserException, match=e.msg()):
              self.p.parse("")
 

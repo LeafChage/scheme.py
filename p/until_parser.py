@@ -1,13 +1,18 @@
+from collections.abc import Sequence
+from typing import Any
 from p.parser import IParser
 from p.parser_exception import ParserException
 
-class UntilParser[T](IParser[str]):
-    p: IParser[T]
+class UntilParser[E](IParser[E, Sequence[E]]):
+    p: IParser[E, Any]
 
-    def __init__(self, p: IParser[T]) -> None:
+    def __init__(self, p: IParser[E, Any]) -> None:
         self.p = p
 
-    def parse(self, stream: str) -> tuple[str, str]:
+    def expect(self) -> list[str]:
+        return self.p.expect()
+
+    def parse(self, stream: Sequence[E]) -> tuple[Sequence[E], Sequence[E]]:
         for i in range(0, len(stream)):
             try:
                 _ = self.p.parse(stream[i:])
@@ -15,6 +20,8 @@ class UntilParser[T](IParser[str]):
             except ParserException:
                 pass
 
-        raise ParserException()
+        raise ParserException(expect=self.expect(), actual="EOF")
 
 
+def until[E](p: IParser[E, Any])->IParser[E, Sequence[E]]:
+    return UntilParser(p)

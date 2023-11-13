@@ -21,6 +21,6 @@ requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
 [tool.pytest.ini_options]
-addopts = "--show-capture=all"
+addopts = "-s"
 testpaths = [ "." ]
 python_files = "*_test.py"

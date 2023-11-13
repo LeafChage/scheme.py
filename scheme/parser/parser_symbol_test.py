@@ -1,4 +1,4 @@
-from scheme.parser import symbol
+from scheme.parser.parser import symbol
 
 class TestSymbolParser:
     def test_ok(self):

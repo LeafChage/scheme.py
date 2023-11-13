@@ -1,5 +1,5 @@
 from scheme.lisp_value import LString
-from scheme.parser import string
+from scheme.parser.parser import string
 
 class TestStringParser:
     p = string()

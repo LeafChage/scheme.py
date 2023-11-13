@@ -1,5 +1,5 @@
 from scheme.lisp_value import LList, LNumber
-from scheme.parser import s_expression
+from scheme.parser.parser import s_expression
 
 class TestSExpressionParser:
     p = s_expression()

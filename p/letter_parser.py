@@ -14,20 +14,24 @@ _letter = [
         "U","V","W","X","Y","Z",
         ]
 
-class LetterParser(IParser[str]):
+class LetterParser(IParser[str, str]):
     def __init__(self) -> None:
         pass
+
+    def expect(self) -> list[str]:
+        return _letter
 
     def parse(self, stream: str) -> tuple[str, str]:
         try:
             v = stream[0]
         except IndexError:
-            raise ParserException(expect="letter",actual="EOF")
+            raise ParserException(_letter, actual="EOF")
         else:
             if v in _letter:
                 return (v,stream[1:])
             else:
-                raise ParserException(expect="letter",actual=v)
+                raise ParserException(_letter,actual=v)
 
 
-
+def letter():
+    return LetterParser()

@@ -1,5 +1,5 @@
 from scheme.lisp_value import LAtom, LBoolean
-from scheme.parser import atom
+from scheme.parser.parser import atom
 
 class TestAtomParser:
     p = atom()

@@ -11,7 +11,7 @@ class TestEofParser:
         assert stream == ""
 
     def test_raise(self):
-        e = ParserException(expect="EOF", actual="h")
+        e = ParserException(expect=self.p.expect(), actual="h")
         with pytest.raises(ParserException, match=e.msg()):
              self.p.parse("hello")
 

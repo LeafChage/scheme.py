@@ -1,8 +1,8 @@
 from scheme.lisp_value import LString
-from scheme.parser import parse
+from scheme.parser.parser import parser
 
 class TestParser:
-    p = parse()
+    p = parser()
 
     def test_ok(self):
         (value, stream) = self.p.parse("\"hi\"")

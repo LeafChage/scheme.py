@@ -1,5 +1,5 @@
 from scheme.lisp_value import LNumber
-from scheme.parser import number
+from scheme.parser.parser import number
 
 class TestNumberParser:
     p = number()
