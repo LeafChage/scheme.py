@@ -1,8 +1,7 @@
 from p.parser import IParser
 from p.parser_exception import ParserException
-from util.string import String
 
-letter = [
+_letter = [
         "a","b","c","d","e",
         "f","g","h","i","j",
         "k","l","m","n","o",
@@ -20,11 +19,15 @@ class LetterParser(IParser[str]):
         pass
 
     def parse(self, stream: str) -> tuple[str, str]:
-        (v, s)  = String.split(stream, 1)
-        if v in letter:
-            return (v,s)
+        try:
+            v = stream[0]
+        except IndexError:
+            raise ParserException(expect="letter",actual="EOF")
         else:
-            raise ParserException()
+            if v in _letter:
+                return (v,stream[1:])
+            else:
+                raise ParserException(expect="letter",actual=v)
 
 
 

@@ -1,6 +1,5 @@
 import p as P
-from p.parser import IParser
-# from p.parser_exception import ParserException
+from p import IParser
 from scheme.lisp_value import LAtom, LBoolean, LList, LNumber, LString, LispVal
 
 def symbol() -> IParser[str]:
@@ -45,10 +44,9 @@ def atom() -> IParser[LispVal]:
                 _inner_change_to_lispvalue
             )
 
-
 def plist() -> IParser[LispVal]:
-    def _inner(a: list[tuple[LispVal, str]])-> LispVal:
-        def fn(t: tuple[LispVal, str])->LispVal:
+    def _inner(a: list[tuple[LispVal, None]])-> LispVal:
+        def fn(t: tuple[LispVal, None])->LispVal:
             (v, _) = t
             return v
         return LList(list(map(fn, a)))
@@ -60,21 +58,24 @@ def plist() -> IParser[LispVal]:
         ).map(_inner)
 
 # def dotted_list() -> IParser[LispVal]:
+#     P.many1(plist())
 #     raise ParserException()
 #
-# def s_expression() -> IParser[LispVal]:
-#     def _inner(a: tuple[tuple[str, LispVal], str])->LispVal:
-#         ((_, val), _) = a
-#         return val
-#
-#     return P.string("(").and_(plist().or_(dotted_list())).and_(P.string(")")).map(_inner)
-#
-# def quoted() -> IParser[LispVal]:
-#     def _inner(a: tuple[str, LispVal])->LispVal:
-#         (_, lisp) = a
-#         return LList([LAtom("quote"), lisp])
-#
-#     return P.string("'").and_(parse().debug()).map(_inner)
+def s_expression() -> IParser[LispVal]:
+    def _inner(a: tuple[tuple[str, LispVal], str])->LispVal:
+        ((_, val), _) = a
+        return val
+
+    return P.string("(").debug().and_(
+            plist()
+        ).and_(P.string(")")).map(_inner)
+
+def quoted() -> IParser[LispVal]:
+    def _inner(a: tuple[str, LispVal])->LispVal:
+        (_, lisp) = a
+        return LList([LAtom("quote"), lisp])
+
+    return P.string("'").and_(parse().debug()).map(_inner)
 
 def parse() -> IParser[LispVal]:
     return P.choice(atom(),

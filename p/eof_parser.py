@@ -9,7 +9,7 @@ class EofParser(IParser[None]):
         if stream == "":
             return (None, stream)
         else:
-            raise ParserException()
+            raise ParserException(expect="EOF", actual=stream[0])
 
 
 

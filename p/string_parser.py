@@ -1,6 +1,5 @@
 from p.parser import IParser
 from p.parser_exception import ParserException
-from util.string import String
 
 class StringParser(IParser[str]):
     _target: str
@@ -9,14 +8,11 @@ class StringParser(IParser[str]):
         self._target = t
 
     def parse(self, stream: str) -> tuple[str, str]:
-        if len(stream) >= len(self._target):
-            take = stream[:len(self._target)]
-            if take == self._target:
-                return String.split(stream, len(self._target))
-            else:
-                raise ParserException()
+        take = stream[:len(self._target)]
+        if take == self._target:
+            return (self._target, stream[len(self._target):])
         else:
-            raise ParserException()
+            raise ParserException(expect=self._target, actual=take)
 
 
 
