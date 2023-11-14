@@ -1,35 +1,38 @@
 from dataclasses import dataclass
 from abc import ABC, abstractmethod
 
-type LispVal = LAtom | LList | LDottedList | LNumber | LString | LBoolean
-
 class Showable(ABC):
     @abstractmethod
-    def show(self) -> str: pass
+    def show(self) -> str:
+        pass
 
 @dataclass()
-class LAtom(Showable):
+class LispVal(Showable):
+    pass
+
+@dataclass()
+class LAtom(LispVal):
     value: str
 
     def show(self) -> str:
         return self.value
 
 @dataclass()
-class LNumber(Showable):
+class LNumber(LispVal):
     value: int
 
     def show(self) -> str:
         return "{}".format(self.value)
 
 @dataclass()
-class LString(Showable):
+class LString(LispVal):
     value: str
 
     def show(self) -> str:
         return "\"{}\"".format(self.value)
 
 @dataclass()
-class LBoolean(Showable):
+class LBoolean(LispVal):
     value: bool
 
     def show(self) -> str:
@@ -39,14 +42,14 @@ class LBoolean(Showable):
             return "#f"
 
 @dataclass()
-class LList(Showable):
+class LList(LispVal):
     value: list[LispVal]
 
     def show(self) -> str:
         return "({})".format(" ".join(map(lambda a: a.show(), self.value)))
 
 @dataclass()
-class LDottedList(Showable):
+class LDottedList(LispVal):
     value: tuple[list[LispVal], LispVal]
 
     def show(self) -> str:
