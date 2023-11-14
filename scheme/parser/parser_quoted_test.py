@@ -1,5 +1,5 @@
 from scheme.lisp_value import LAtom, LList, LString
-from scheme.parser import quoted
+from scheme.parser.parser import quoted
 
 class TestQuotedParser:
     p = quoted()

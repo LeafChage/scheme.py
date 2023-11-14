@@ -1,1 +1,1 @@
-from scheme.parser import *
+from scheme.parser.parser import parser

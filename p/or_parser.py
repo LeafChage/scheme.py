@@ -1,22 +1,23 @@
+from collections.abc import Sequence
 from p.parser import IParser
 from p.parser_exception import ParserException
 
-class OrParser[T](IParser[T]):
-    p1: IParser[T]
-    p2: IParser[T]
+class OrParser[E, O](IParser[E, O]):
+    _p1: IParser[E, O]
+    _p2: IParser[E, O]
 
-    def __init__(self, p1: IParser[T], p2: IParser[T]) -> None:
-        self.p1 = p1
-        self.p2 = p2
+    def __init__(self, p1: IParser[E, O], p2: IParser[E, O]) -> None:
+        self._p1 = p1
+        self._p2 = p2
 
-    def parse(self, stream: str) -> tuple[T, str]:
+    def expect(self)-> list[str]:
+        return self._p1.expect() + self._p2.expect()
+
+    def parse(self, stream: Sequence[E]) -> tuple[O, Sequence[E]]:
         try:
-            return self.p1.parse(stream)
-        except ParserException as e:
+            return self._p1.parse(stream)
+        except ParserException as e1:
             try:
-                return self.p2.parse(stream)
-            except ParserException as e:
-                raise e
-
-
-
+                return self._p2.parse(stream)
+            except ParserException as e2:
+                raise ParserException.concat(e1, e2)

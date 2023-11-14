@@ -6,3 +6,4 @@ class TestMapParser:
         (value, stream) = p.parse("hellopython")
         assert value == ("hello world")
         assert stream == "python"
+

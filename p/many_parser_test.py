@@ -1,6 +1,5 @@
 from p.digit_parser import DigitParser
 from p.many_parser import ManyParser
-from p.parser_exception import ParserException
 
 class TestManyParser:
     def test_ok(self):

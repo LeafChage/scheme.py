@@ -1,15 +1,20 @@
+from collections.abc import Sequence
 from typing import Callable
 from p.parser import IParser
 
-class MapParser[T1, T2](IParser[T2]):
-    p: IParser[T1]
-    fn: Callable[[T1], T2]
+class MapParser[E, O, O2](IParser[E, O2]):
+    _p: IParser[E, O]
+    _fn: Callable[[O], O2]
 
-    def __init__(self, p: IParser[T1], fn: Callable[[T1], T2]) -> None:
-        self.p = p
-        self.fn = fn
+    def __init__(self, p: IParser[E, O], fn: Callable[[O], O2]) -> None:
+        self._p = p
+        self._fn = fn
 
-    def parse(self, stream: str) -> tuple[T2, str]:
-        (v1, s) = self.p.parse(stream)
-        return (self.fn(v1), s)
+    def expect(self) -> list[str]:
+        return self._p.expect()
+
+    def parse(self, stream: Sequence[E]) -> tuple[O2, Sequence[E]]:
+        (v1, s) = self._p.parse(stream)
+        return (self._fn(v1), s)
+
 

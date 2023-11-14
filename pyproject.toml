@@ -7,7 +7,6 @@ readme = "README.md"
 packages = [
     {include = "scheme"},
     {include = "p"},
-    {include = "util"}
 ]
 
 [tool.poetry.dependencies]
@@ -21,4 +20,7 @@ pyright = "^1.1.333"
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
-
+[tool.pytest.ini_options]
+addopts = "-s"
+testpaths = [ "." ]
+python_files = "*_test.py"

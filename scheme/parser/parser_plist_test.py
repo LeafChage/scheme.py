@@ -1,5 +1,5 @@
 from scheme.lisp_value import LList, LNumber
-from scheme.parser import plist
+from scheme.parser.parser import plist
 
 class TestListParser:
     p = plist()
