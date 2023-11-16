@@ -60,7 +60,16 @@ class NumArgs(LispError):
             " ".join(map(lambda a: a.show(), self.actual))
         )
 
+class BadSpecialForm(LispError):
+    form: LispVal
+
+    def __init__(self, form: LispVal) -> None:
+        self.form = form
+        super().__init__(self.show())
+
+    def show(self) -> str:
+        return "Badform: {}".format(self.form.show())
 
 # showError :: LispError -> String
 # showError (UnboundVar message varname)  = message ++ ": " ++ varname
-# showError (BadSpecialForm message form) = message ++ ": " ++ show form
+# showError (message form) = message ++ ": " ++ show form
