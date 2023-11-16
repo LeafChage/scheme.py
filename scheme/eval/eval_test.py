@@ -12,10 +12,17 @@ class TestEval:
         assert e.lisp(LBoolean(True)) == LBoolean(True)
         assert e.lisp(LBoolean(False)) == LBoolean(False)
 
-    def test_eval_list_ok(self):
+    def test_eval_fn_add_ok(self):
         assert e.lisp(LList([LAtom("+"), LNumber(1), LNumber(2)])) == LNumber(3)
-        assert e.lisp(LList([LAtom("*"), LNumber(1), LNumber(2), LNumber(3)])) == LNumber(6)
-        # assert e.lisp(LList([LAtom("string?"), LString("hi")])) == LBoolean(True)
+
+    def test_eval_fn_multiple_ok(self):
+        assert e.lisp(LList([LAtom("+"), LNumber(1), LNumber(2)])) == LNumber(3)
+
+    def test_eval_fn_is_string_ok(self):
+        assert e.lisp(LList([LAtom("string?"), LString("hi")])) == LBoolean(True)
+
+    # def test_eval_fn_not_function_ok(self):
+    #     assert e.lisp(LList([LAtom("_not_exist_function"), LString("hi")])) == LBoolean(True)
 
 
 

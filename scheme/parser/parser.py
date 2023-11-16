@@ -40,7 +40,7 @@ def atom() -> IParser[str, LispVal]:
             )
 
 def plist() -> IParser[str, LispVal]:
-    return P.many1(parser().skip(P.attempt(spaces()))).map(lambda l : LList(l))
+    return P.many1(lisp().skip(P.attempt(spaces()))).map(lambda l : LList(l))
 
 # def dotted_list() -> IParser[LispVal]:
 #     P.many1(plist())
@@ -54,14 +54,19 @@ def quoted() -> IParser[str, LispVal]:
         (_, lisp) = a
         return LList([LAtom("quote"), lisp])
 
-    return P.string("'").and_(parser()).map(_inner)
+    return P.string("'").and_(lisp()).map(_inner)
 
-def parser() -> IParser[str, LispVal]:
+def lisp() -> IParser[str, LispVal]:
     return P.choice(atom(),
                     string(),
                     number(),
                     P.lazy(quoted),
                     P.lazy(s_expression)
                     )
+
+def parser(value: str) -> LispVal:
+    (result, _) = lisp().parse(value)
+    return result
+
 
 
