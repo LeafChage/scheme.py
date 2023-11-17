@@ -1,5 +1,5 @@
-import p as P
-from p import IParser
+import flytrap as P
+from flytrap import IParser
 from scheme.lisp_value import LAtom, LBoolean, LList, LNumber, LString, LispVal
 
 def symbol() -> IParser[str, str]:

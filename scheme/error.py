@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 from scheme.lisp_value import LispVal
-from p import ParserException
+from flytrap import ParserException
 
 class Showable(ABC):
     @abstractmethod

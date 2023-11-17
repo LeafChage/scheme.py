@@ -12,6 +12,17 @@ files = [
 ]
 
 [[package]]
+name = "flytrap-py"
+version = "0.1.0"
+description = "parser"
+optional = false
+python-versions = ">=3.12,<4.0"
+files = [
+    {file = "flytrap_py-0.1.0-py3-none-any.whl", hash = "sha256:40a0c610f8a7247d03711511ffdbc1ba4577274b318539ea91db7a9ccdbdc897"},
+    {file = "flytrap_py-0.1.0.tar.gz", hash = "sha256:344d52efdbfd78d3f6e8776758c86cc792661d3a315f8b16759207bbde1f6274"},
+]
+
+[[package]]
 name = "iniconfig"
 version = "2.0.0"
 description = "brain-dead simple config-ini parsing"
@@ -119,4 +130,4 @@ testing-integration = ["build[virtualenv] (>=1.0.3)", "filelock (>=3.4.0)", "jar
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.12"
-content-hash = "7a6b87e464bfd803a59820819771035d9ff6ee7a4c55619458529a8cf39ba189"
+content-hash = "960c9055b87d70d6452d85d4380b018b6d7b4417b6a69ac8a8b6849bf40c725b"
